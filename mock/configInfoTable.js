@@ -3,17 +3,16 @@ const Mock = require('mockjs')
 const data = Mock.mock({
   'items|30': [{
     id: '@id',
-    title: '@sentence(10, 20)',
-    'status|1': ['published', 'draft', 'deleted'],
-    author: 'name',
-    display_time: '@datetime',
-    pageviews: '@integer(300, 5000)'
+    ip:'@ip',
+    cpu_num:'@integer(1, 16)',
+    cpu_model:'intel i7 7200',
+    harddisks_num: '@integer(1, 10)'
   }]
 })
 
 module.exports = [
   {
-    url: '/vue-admin-template/table/list',
+    url: '/vue-admin-template/configInfo/list',
     type: 'get',
     response: config => {
       const items = data.items
