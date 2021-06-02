@@ -14,8 +14,8 @@
       element-loading-text="Loading"
       border
       fit
-      row-class-name="minStyle"
       highlight-current-row
+      :row-class-name="bg"
     >
       <el-table-column align="center" label="IP">
         <template slot-scope="scope">
@@ -24,7 +24,7 @@
       </el-table-column>
       <el-table-column label="错误">
         <template slot-scope="scope">
-          <p :class="[scope.row.error ? 'BGRed' : 'BGGreen']">{{ scope.row.error }}</p>
+          <p>{{ scope.row.error }}</p>
         </template>
       </el-table-column>
       <el-table-column label="CPU使用率">
@@ -44,7 +44,6 @@
       </el-table-column>
       <el-table-column label="目标盘使用率">
         <template slot-scope="scope">
-          <!--          :class="[ scope.row.dstuse > -1 ? 'BGYellow' : '']"-->
           <p>{{ scope.row.dstuse }}</p>
         </template>
       </el-table-column>
@@ -92,6 +91,17 @@ export default {
     }, 1000 * 60 * 2)
   },
   methods: {
+    bg(data) {
+      console.log(data)
+      const { error, dstuse } = data.row;
+      if (error > 0) {
+        return 'redBg'
+      }
+      if (dstuse > 97) {
+        return 'blueBg'
+      }
+      return ''
+    },
     handleDel(index, row) {
       this.$confirm('确定要删除吗?', '提示', {
         confirmButtonText: '确定',
@@ -118,7 +128,8 @@ export default {
       console.log('submit!');
     },
     fetchData() {
-      this.listLoading = true
+      this.listLoading = true;
+      // this.list = [{ error: 1, dstuse: 99 }, { error: 0, dstuse: 9 }];
       queryDeviceStatusInfo().then(response => {
         this.list = response.data
         this.allList = response.data
@@ -129,14 +140,14 @@ export default {
 }
 </script>
 <style>
-.BGRed{
-  color: red;
+.redBg{
+  background-color: red!important;
 }
-.BGGreen{
-  color: green;
+.blueBg{
+  background-color: #409EFF!important;
 }
-.BGYellow{
-  color: yellow;
+.yellowBg{
+  background-color: yellow!important;
 }
 .minStyle{
   background: rebeccapurple;

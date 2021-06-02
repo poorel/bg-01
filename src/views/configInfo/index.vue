@@ -259,10 +259,7 @@ export default {
       })
     },
     fetchData() {
-      this.listLoading = false
-      this.list = [{
-        mac: '989'
-      }]
+      this.listLoading = true
       queryDeviceInfo().then(response => {
         this.list = response.data
         this.allList = response.data
