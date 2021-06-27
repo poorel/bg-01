@@ -31,7 +31,30 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-
+  {
+    path: '/device/clientManage',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'clientManage',
+        component: () => import('@/views/clientManage/index'),
+        meta: { title: '客户管理', icon: 'el-icon-s-help' }
+      }
+    ]
+  },
+  {
+    path: '/device/orderManage',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'orderManage',
+        component: () => import('@/views/orderManage/index'),
+        meta: { title: '工单管理', icon: 'el-icon-s-help' }
+      }
+    ]
+  },
   {
     path: '/device/configInfo',
     component: Layout,
@@ -83,17 +106,17 @@ export const constantRoutes = [
   //   hidden: true
   // },
 
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   children: [{
-  //     path: 'dashboard',
-  //     name: 'Dashboard',
-  //     component: () => import('@/views/dashboard/index'),
-  //     meta: { title: 'Dashboard', icon: 'dashboard' }
-  //   }]
-  // },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
+    }]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/device/configInfo/index', hidden: true }
 ]
